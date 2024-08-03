@@ -1,16 +1,10 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-#include "./headers/node_group.h"
+#include "./headers/cling.h"
 
 // Main Declarations
-
-// cling::NodeGroup current_nodegroup
-// cling::Node current_editing_node
-// boolean edit_mode
-
-// create_node_group(string NodeGroup_Name) 
-// menu() PRINT MENU
-// help() SHOW HELP MENU
+cling::Cling cling; /// @brief Cling App Instance
+void main();
 
 #endif
