@@ -4,8 +4,8 @@
 
 int main(int argc, char const *argv[]) {
 
-    cling::Cling cling;
-    cling.start();
+    cling::Cling app;
+    app.start();
 
     return 0;
 }

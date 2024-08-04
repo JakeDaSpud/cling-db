@@ -1,7 +1,7 @@
 #ifndef NODE_GROUP_H
 #define NODE_GROUP_H
 
-#include "./headers/node.h"
+#include "./node.h"
 
 // Node Group Declarations
 

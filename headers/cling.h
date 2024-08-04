@@ -1,7 +1,7 @@
 #ifndef CLING_H
 #define CLING_H
 
-#include "./headers/node_group.h"
+#include "./node_group.h"
 
 // Cling Declarations
 namespace cling {
@@ -9,12 +9,23 @@ namespace cling {
 /// @brief Cling App Class
 class Cling {
 public:
+
+    /// @brief Default Constructor
+    Cling() {
+        std::cout << "Cling App instantiated" << std::endl;
+    };
+
+    /// @brief Default Destructor
+    ~Cling() {
+        std::cout << "Cling App destroyed" << std::endl;
+    };
+
     /// @brief Start Cling instance
     void start();
     
 private:
-    cling::NodeGroup _m_current_nodegroup = null; /// @brief The Current Node Group in use
-    cling::Node _m_current_editing_node = null; /// @brief The Current Node being edited
+    NodeGroup _m_current_nodegroup; /// @brief The Current Node Group in use
+    Node _m_current_editing_node; /// @brief The Current Node being edited
     bool _m_edit_mode = false; /// @brief If a Node is being edited
 
 private:

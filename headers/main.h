@@ -1,10 +1,9 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-#include "./headers/cling.h"
+#include "./cling.h"
 
 // Main Declarations
-cling::Cling cling; /// @brief Cling App Instance
-void main();
+int main(int argc, char const *argv[]);
 
 #endif

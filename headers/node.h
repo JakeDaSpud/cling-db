@@ -3,6 +3,9 @@
 
 // Node Declarations
 
+#include <iostream>
+#include <string>
+
 namespace cling {
 
 /// @brief An Entry with a Name Label and Attribute
