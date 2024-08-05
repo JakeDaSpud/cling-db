@@ -23,8 +23,8 @@ public:
             STRING
         };
 
-        std::string name;
-        AttributeType type;
+        std::string name; /// @brief This Attribute's display Name
+        AttributeType type; /// @brief This Attribute's Enum Type
     };
 
     std::string m_Label; /// @brief This Node's Label

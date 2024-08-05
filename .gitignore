@@ -2,7 +2,7 @@
 data/
 
 # Visual Studio Code Settings
-.vscode/
+\.vscode/
 
 # Prerequisites
 *.d
