@@ -1,6 +1,9 @@
 # User-Generated Cling Files
 data/
 
+# Visual Studio Code Settings
+.vscode/
+
 # Prerequisites
 *.d
 
