@@ -10,6 +10,18 @@ namespace cling {
 /// @brief A grouping of Nodes
 class NodeGroup {
 public:
+    std::string name;
+
+public:
+    NodeGroup(std::string node_group_name = "Unnamed Node Group") {
+        std::cout << "Made new NodeGroup: " + node_group_name << std::endl;
+        this->name = node_group_name;
+    }
+
+    ~NodeGroup() {
+        std::cout << "Destroyed NodeGroup" << std::endl;
+    }
+
     /// @brief Add a new Node to this Node Group
     /// @param[in] Node_Label The Label of the new Node
     void add_node(std::string Node_Label);

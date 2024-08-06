@@ -21,7 +21,7 @@ C:  Cling Commands:
         While not in a NodeGroup:
         [create "NodeGroup_Name"]: Create a new NodeGroup by name 
         [view]: View all NodeGroups
-        [go "Name_of_NodeGroup"]: Enter / Use a NodeGroup by name
+        [use "Name_of_NodeGroup"]: Enter / Use a NodeGroup by name
 
         While in a NodeGroup:
         [add "Node_Label"]: Add a new, null Node with a Label

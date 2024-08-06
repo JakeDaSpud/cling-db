@@ -2,6 +2,9 @@
 #define CLING_H
 
 #include "./node_group.h"
+#include <fstream>
+#include <filesystem>
+#include <vector>
 
 // Cling Declarations
 namespace cling {
@@ -9,7 +12,6 @@ namespace cling {
 /// @brief Cling App Class
 class Cling {
 public:
-
     /// @brief Default Constructor
     Cling() {
         std::cout << "Cling App instantiated" << std::endl;
@@ -24,13 +26,21 @@ public:
     void start();
     
 private:
-    NodeGroup _m_current_nodegroup; /// @brief The Current Node Group in use
+    std::string _m_user_input = "__START_INPUT__";
+    std::vector<std::string> _m_found_node_groups; /// @brief Node Groups that Cling has found from data/
+    NodeGroup _m_current_nodegroup = NodeGroup("__NULL_NODEGROUP__"); /// @brief The Current Node Group in use
     Node _m_current_editing_node; /// @brief The Current Node being edited
     bool _m_edit_mode = false; /// @brief If a Node is being edited
+    const std::string _DATA_PATH = "data/";
 
 private:
     /// @brief End Cling instance
     void _end();
+
+    void _get_user_input();
+
+    /// @brief Find Node Group Names from data/ and push to _m_node_groups
+    void _import_node_groups();
 
     /// @brief Enter / Use the named Node Group
     /// @param NodeGroup_Name Name of the Node Group you want to use
@@ -40,6 +50,8 @@ private:
     /// @param NodeGroup_Name Name of new Node Group, e.g. "Manga Collection"
     void _create_node_group(std::string NodeGroup_Name);
 
+    void _print_main_menu();
+
     /// @brief Print the Node Group Menu
     void _print_node_group_menu(); 
 
@@ -47,7 +59,9 @@ private:
     void _print_node_menu();
     
     /// @brief Print the help menu
-    void _print_help(); 
+    void _print_help();
+
+    std::string _string_to_upper(const std::string &string_input);
 };
 
 }
