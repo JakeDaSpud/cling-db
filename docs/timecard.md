@@ -6,3 +6,4 @@ this is me seeing how long this project takes me, i'm curious!
 - 04/08/2024: 1.5h
 - 05/08/2024: 1.5h
 - 06/08/2024: 4.5h
+- 08/08/2024: 1h
