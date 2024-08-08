@@ -28,6 +28,11 @@ void cling::Cling::start() {
                 _print_help();
             }
 
+            // View Command
+            else if (_m_user_input == "VIEW") {
+                command_view();
+            }
+
             // Use Command
             else if (_m_user_input.substr(0, 4) == "USE ") {
                 for (int i = 0; i < _m_found_node_groups.size(); i++) {
@@ -72,7 +77,7 @@ void cling::Cling::_get_user_input() {
 
 void cling::Cling::_end() {
     std::cout << std::endl;
-    std::cout << "Writing Node Groups and Nodes to file...\n";
+    std::cout << "Saving data...\n";
 
     // Write Node Group Files
 
@@ -107,7 +112,20 @@ void cling::Cling::_import_node_groups() {
     }
 }
 
-void cling::Cling::_use_node_group(std::string NodeGroup_Name) {
+void cling::Cling::command_view() {
+    // Empty check
+    if (_m_found_node_groups.empty()) {
+        std::cout << "No Node Groups\n";
+        return;
+    }
+
+    std::cout << "Node Groups:\n";
+    for (int i = 0; i < _m_found_node_groups.size(); i++) {
+        std::cout << " - " << _m_found_node_groups[i] << '\n';
+    }
+}
+
+void cling::Cling::command_use(std::string NodeGroup_Name) {
 
 }
 

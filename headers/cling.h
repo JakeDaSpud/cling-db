@@ -31,37 +31,40 @@ private:
     NodeGroup _m_current_nodegroup = NodeGroup("__NULL_NODEGROUP__"); /// @brief The Current Node Group in use
     Node _m_current_editing_node; /// @brief The Current Node being edited
     bool _m_edit_mode = false; /// @brief If a Node is being edited
-    const std::string _DATA_PATH = "data/";
+    const std::string _DATA_PATH = "data/"; /// @brief Relative path to where User Data is stored
 
 private:
     /// @brief End Cling instance
     void _end();
 
+    /// @brief Takes standard input and capitalises it
     void _get_user_input();
 
     /// @brief Find Node Group Names from data/ and push to _m_node_groups
     void _import_node_groups();
-
-    /// @brief Enter / Use the named Node Group
-    /// @param NodeGroup_Name Name of the Node Group you want to use
-    void _use_node_group(std::string NodeGroup_Name);
 
     /// @brief Create a new Node Group
     /// @param NodeGroup_Name Name of new Node Group, e.g. "Manga Collection"
     void _create_node_group(std::string NodeGroup_Name);
 
     void _print_main_menu();
-
-    /// @brief Print the Node Group Menu
     void _print_node_group_menu(); 
-
-    /// @brief Print the Node Menu 
     void _print_node_menu();
-    
-    /// @brief Print the help menu
     void _print_help();
 
+    /// @brief Returns a capitalised Input String
+    /// @param string_input
+    /// @return Capitalised form of Input String
     std::string _string_to_upper(const std::string &string_input);
+
+    // User's Commands
+
+    /// @brief Prints out all detected Node Groups, or a message if none are found
+    void command_view();
+
+    /// @brief Enter / Use the named Node Group
+    /// @param NodeGroup_Name Name of the Node Group you want to use
+    void command_use(std::string NodeGroup_Name);
 };
 
 }
