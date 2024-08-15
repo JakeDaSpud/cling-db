@@ -11,7 +11,7 @@ void cling::Cling::start() {
     _import_node_groups();
 
     // Main App Print -> Input Loop
-    while (_m_user_input != "EXIT" && _m_user_input != "QUIT") {
+    while (_m_user_input != "EXIT" && _m_user_input != "QUIT" && _m_user_input != "E" && _m_user_input != "Q") {
         
         // Prompt:Select NodeGroup
         // data/ has more than 0 directories: Show Node Group names: Prompt:Select Node Group
@@ -20,6 +20,7 @@ void cling::Cling::start() {
         if (_m_current_nodegroup.name == "__NULL_NODEGROUP__") {
             _print_main_menu();
             _get_user_input();
+            std::cout << '\n';
 
             // Check input
 
@@ -35,15 +36,23 @@ void cling::Cling::start() {
 
             // Use Command
             else if (_m_user_input.substr(0, 4) == "USE ") {
+                bool tempFound = false;
                 for (int i = 0; i < _m_found_node_groups.size(); i++) {
                     std::string node_name_upper = _string_to_upper(_m_found_node_groups[i]);
                     
                     if (_m_user_input.substr(4) == node_name_upper) {
                         _m_current_nodegroup = _m_found_node_groups[i];
+                        tempFound = true;
                     }
                 }
+                if (!tempFound) {
+                    // Couldn't match name to found Node Group names
+                    std::cout << "Error: Didn't find that Node Group\n";
+                }
+            }
 
-                std::cout << "Error: Didn't find that Node Group\n";
+            else if (_m_user_input == "EXIT" || _m_user_input == "QUIT" || _m_user_input == "E" || _m_user_input == "Q") {
+                std::cout << "Exiting Cling\n";
             }
 
             else {
@@ -62,6 +71,31 @@ void cling::Cling::start() {
             _get_user_input();
 
             // When User goes out of the Node Group, set _m_current_nodegroup.name to "__NULL_NODEGROUP__"
+            // Check input
+
+            // Help Command
+            if (_m_user_input == "H" || _m_user_input == "HELP") {
+                _print_help();
+            }
+
+            // View Nodes
+
+            // Add Node
+
+            // Edit Node
+            // Error Msg if NodeCount < 1
+
+            // Sort (View) Nodes
+
+            // Stop Using this Node Group -> Go to Main Menu
+            else if (_m_user_input == "STOP") {
+                std::cout << "Exiting " << _m_current_nodegroup.name << '\n';
+                _m_current_nodegroup.name = "__NULL_NODEGROUP__";
+            }
+
+            else {
+                std::cout << "Error: Unrecognised command\n";
+            }
         }
 
     }
@@ -92,8 +126,8 @@ void cling::Cling::_import_node_groups() {
     if (std::filesystem::exists(_DATA_PATH) && std::filesystem::is_directory(_DATA_PATH)) {
         std::cout << "Found data/ Path" << '\n';
         
-        // Iterate on every directory in the data/ path
-        for (const auto& entry : std::filesystem::directory_iterator(_DATA_PATH)) {
+        // Iterate through every directory in the data/ path
+        for (const std::filesystem::directory_entry &entry : std::filesystem::directory_iterator(_DATA_PATH)) {
 
             // Check if the entry is a directory, if yes: add directory name to _m_node_groups
             if (entry.is_directory()) {
@@ -137,33 +171,22 @@ void cling::Cling::_print_main_menu() {
     std::cout << std::endl;
     std::cout << "-= Cling: No Node Group in use =-\n"
         << "[view]\n"
-        << "[use] Node Group Name\n"
         << "[create] New Node Group Name\n"
-        << "[help] [h]\n"
-        << "[exit] [quit]\n"
+        << "[use] Node Group Name\n"
+        << "[help]\n"
+        << "[exit]\n"
         << "Input: ";
 }
 
 void cling::Cling::_print_node_group_menu() {
     std::cout << std::endl;
-    std::cout << "-= Node Group: " + _m_current_nodegroup.name + " =-\n";
-    
-    if (_m_found_node_groups.size() > 0) {
-        std::cout << "Choose which Node Group to use, or create a new one\n";
-
-        for (int i = 0; i < _m_found_node_groups.size(); i++) {
-            std::cout << "[use] " + _m_found_node_groups.at(i) << "\n";
-        }
-
-        std::cout << "[create] New Node Group Name\n";
-        std::cout << "Input: ";
-    }
-
-    else {
-        std::cout << "No Node Groups Found\n";
-        std::cout << "[create] New Node Group Name\n";
-        std::cout << "Input: ";
-    }
+    std::cout << "-= Node Group: " << _m_current_nodegroup.name << " =-\n"
+    << "[view]\n"
+    << "[sort]\n"
+    << "[add]\n"
+    << "[edit]\n"
+    << "[stop] Stop using " << _m_current_nodegroup.name << '\n'
+    << "Input: ";
 }
 
 void cling::Cling::_print_node_menu() {
@@ -175,8 +198,8 @@ void cling::Cling::_print_node_menu() {
 void cling::Cling::_print_help() {
     std::cout << std::endl;
     std::cout   << "-= Cling Commands Help =-\n" 
-                    << "[H] [Help]: Show this help menu\n"
-                    << "[quit] [exit]: Exit the Cling app\n\n"
+                    << "[help] [h]: Show this help menu\n"
+                    << "[exit] [e] [quit] [q]: Exit the Cling app\n\n"
 
                     << "While not in a Node Group:\n"
                         << "\t[create \"NodeGroup_Name\"]: Create a new Node Group by name\n"
@@ -189,9 +212,10 @@ void cling::Cling::_print_help() {
                             << "\t\t[\"Node_Attribute\" \"New_Value\"]: Set this Node's Node_Attribute to New_Value\n"
                             << "\t\t[done]: Exit edit mode\n"
                         << "\t[sort \"Node_Attribute\"]: View all Nodes, sorted by ascending parameter\n"
-                        << "\t[view]: View all Nodes, sorted by ascending Label\n\n"
+                        << "\t[view]: View all Nodes, sorted by ascending Label\n"
+                        << "\t[stop]: Stop using this Node Group and go to the Main Menu\n\n"
 
-                    << "__MORE COMMANDS FOR EXPORTING A NODE GROUP AS CSV OR TXT__\n\n";
+                    << "__MORE COMMANDS FOR EXPORTING A NODE GROUP AS CSV OR TXT__\n";
 }
 
 std::string cling::Cling::_string_to_upper(const std::string &string_input) {
