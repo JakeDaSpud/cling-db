@@ -5,6 +5,7 @@
 #include <fstream>
 #include <filesystem>
 #include <vector>
+#include <sstream>
 
 // Cling Declarations
 namespace cling {
@@ -56,6 +57,9 @@ private:
     /// @param string_input
     /// @return Capitalised form of Input String
     std::string _string_to_upper(const std::string &string_input);
+
+    // needs docs
+    std::string cling::Cling::_string_to_lower(const std::string &string_input);
 
     // User's Commands
 

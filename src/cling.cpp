@@ -43,6 +43,18 @@ void cling::Cling::start() {
                     if (_m_user_input.substr(4) == node_name_upper) {
                         _m_current_nodegroup = _m_found_node_groups[i];
                         tempFound = true;
+
+                        std::string node_name_lower = _string_to_lower(node_name_upper);
+
+                        // Relative link to Node Group
+                        std::string file_path = "/data/" + node_name_lower + "/" + node_name_lower + ".cling";
+
+                        // Create Node from Node Group Definition
+                        // Read first line
+
+                        // Read all Nodes from Node Group
+                        // Populate each Node
+
                     }
                 }
                 if (!tempFound) {
@@ -228,4 +240,16 @@ std::string cling::Cling::_string_to_upper(const std::string &string_input) {
     }
 
     return upper_string;
+}
+
+std::string cling::Cling::_string_to_lower(const std::string &string_input) {
+
+    std::string lower_string = string_input;
+
+    // Uppercase ALL Letters
+    for (int i = 0; i < string_input.length(); i++) {
+        lower_string[i] = tolower(string_input[i]);
+    }
+
+    return lower_string;
 }
